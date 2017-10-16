@@ -15,9 +15,9 @@ class ChistesHandler(ContentHandler):
         """
         self.calificacion = ""
         self.pregunta = ""
-        self.inPregunta = False
+        self.inPregunta = 1
         self.respuesta = ""
-        self.inRespuesta = False
+        self.inRespuesta = 1
 
     def startElement(self, name, attrs):
         """
@@ -26,31 +26,27 @@ class ChistesHandler(ContentHandler):
         if name == 'chiste':
             # De esta manera tomamos los valores de los atributos
             self.calificacion = attrs.get('calificacion', "")
-        elif name == 'pregunta':
-            print("hola")
-            self.inPregunta = True
-        elif name == 'respuesta':
-            self.inRespuesta = True
+            print self.calificacion
 
     def endElement(self, name):
         """
         Método que se llama al cerrar una etiqueta
         """
         if name == 'pregunta':
-            self.pregunta = ""
-            self.inPregunta = False
+            self.inPregunta = 1
+            print self.pregunta
         if name == 'respuesta':
-            self.respuesta = ""
-            self.inRespuesta = False
+            self.inRespuesta = 1
+            print self.respuesta
 
     def characters(self, char):
         """
         Método para tomar contenido de la etiqueta
         """
         if self.inPregunta:
-            self.pregunta = self.pregunta + char
+            self.pregunta = char
         if self.inRespuesta:
-            self.respuesta += char
+            self.respuesta = char
 
 if __name__ == "__main__":
     """
